@@ -56,6 +56,14 @@ $(document).ready(function(){
         var trStart = childSnapshot.val().start;
         var trFreq= childSnapshot.val().frequency;
 
+        // data Info
+        console.log(trName);
+        console.log(trDest);
+        console.log(trStart);
+        console.log(trFreq);
 
+        // declare some variables to handle tim,e format and conversion
+        //Use moment.js  to calculate minutes or time until next train arrival
+        //A dding each train data into table
     });
 });
