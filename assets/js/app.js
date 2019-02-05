@@ -17,20 +17,45 @@ $(document).ready(function(){
 
  // grabs user inputs
 
-        var name = $("#train-name-input").val().trim();
-        var destination = $("#dest-input").val().trim();
-        var train = $("#firstTrain-input").val().trim();
-        var frequency = $("#freq-input").val().trim();
+        var trName = $("#train-name-input").val().trim();
+        var trDest = $("#dest-input").val().trim();
+        var trStart = $("#firstTrain-input").val().trim();
+        var trFreq = $("#freq-input").val().trim();
 
-        // Code for the push
-        dataRef.ref().push({
+        // Creates local "temporary" object for holding employee data
+        var newTrain = {
+            name: trName,
+            destination: trDest,
+            start: trStart,
+            frequency: trFreq,
+        };
 
-            name: name,
-            dest: destination,
-            train: train,
-            frequency: frequency,
-            dateAdded: firebase.database.ServerValue.TIMESTAMP
-        });
+        // Uploads train data to the database
+        //alert("Train successfully added");
+
+        database.ref().push(newTrain);
 
 
+        // Alert
+        alert("Train successfully added");
+
+        // Clears all of the text-boxes
+        $("#train-name-input").val("");
+        $("#dest-input").val("");
+        $("#firstTrain-input").val("");
+        $("#freq-input").val("");
+    });
+
+// 3. Create Firebase event for adding employee to the database and a row in the html when a user adds an entry
+    database.ref().on("child_added", function (childSnapshot) {
+        console.log(childSnapshot.val());
+
+        // Store everything into a variable.
+        var trName= childSnapshot.val().name;
+        var trDest= childSnapshot.val().destination;
+        var trStart = childSnapshot.val().start;
+        var trFreq= childSnapshot.val().frequency;
+
+
+    });
 });
